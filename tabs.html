@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>选项卡测试</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+</head>
+<body>
+<button id="x">XXX</button>
+<div id="myTab" style="width: 500px;margin: 10px auto">
+</div>
+</body>
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/bootstrap-tab.js"></script>
+<script>
+    var x = $('#myTab').bootstrapTab({
+        lazyLoad: false,
+        tabs: [
+            {
+                id: 'home',
+                title: '主界面',
+                remote: 'content1.html',
+                active: false
+            },
+            {
+                id: 'info',
+                title: '个人信息',
+                remote: 'content2.html',
+                active: false
+            },
+            {
+                id: 'info',
+                title: '个人信息',
+                remote: 'content2.html',
+                active: false
+            },
+            {
+                id: 'info',
+                title: '个人信息',
+                remote: 'content2.html',
+                active: false
+            }
+        ]
+    });
+</script>
+</html>
