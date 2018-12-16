@@ -81,30 +81,31 @@
      */
     BootstrapTab.prototype.createItem = function (option, load) {
         var $navs = this.$navs, $content = this.$panels, options = this.options;
-        var item = $.extend(BootstrapTab.TAB_DEFAULTS, option);
+        var item = $.extend({}, BootstrapTab.TAB_DEFAULTS, option);
         if (!item.id || item.id.length < 0) {
             throw 'The id of tab cannot be blank.';
         }
         var exist = $navs.find('> li a[data-id="{0}"]'.place(item.id));
         if (exist.length > 0) {
-            console.warn('Id({0}) duplicate ,and skip it.'.place(item.id));
+            console.warn('Duplicate id({0}) duplicate ,and skip it.'.place(item.id));
             return;
         }
         var nav = new StringBuffer();
         nav.append(item.active ? '<li class="{0}">'.place(options.activeClass) : '<li>');
-        nav.append('<a data-id="{0}" data-remote="{1}" data-target="{2}">'.place(item.id, item.remote, item.target));
+        nav.append('<a data-id="{0}" data-remote="{1}" data-target="{2}" data-title="{3}" data-closeable="{4}">'.place(item.id, item.remote, item.target, item.title, item.closeable));
         nav.append(item.title);
         if (item.closeable) {
             nav.append('<button type="button" style="margin-left: 10px" class="close">&times;</button>');
         }
         nav.append('</a>');
         nav.append('</li>');
-        $navs.append($(nav.toString()));
+        var $nav = $(nav.toString());
+        $navs.append($nav);
 
         var panel = new StringBuffer();
         panel.append(item.active ? '<div class="tab-pane {0}" data-id="{1}">'.place(options.activeClass, item.id) : '<div class="tab-pane" data-id="{0}">'.place(item.id));
         var $panel = $(panel.toString());
-        if (load || item.active) {
+        if (load || item.active || item.target) {
             this.loadPanel($panel);
         }
         $content.append($panel);
@@ -161,7 +162,7 @@
 
     /**
      * 加载标签内容,用于内部
-     * 1.以[remote]为优先，remote可以在连接后带[jquery selector] e.g.:  'foo.html  #myDiv .header'
+     * 1.以[remote]为优先，remote可以在连接后附带[jquery selector] e.g.:  'foo.html  #myDiv .header'
      * 2.在没有[remote]情况下，使用标签的[target]，[target]为[jquery selector]
      * @param panel
      */
@@ -181,14 +182,13 @@
         var $nav = _this.getNav(id);
         var remote = $nav.attr('data-remote');
         var target = $nav.attr('data-target');
-        if (remote) {
+        if (remote !== 'undefined') {
             $panel.load(remote);
-        } else if (target) {
-            this.html($(target).clone());
+        } else if (target !== 'undefined') {
+            $panel.html($(target));
         }
         $panel.prop('data-loaded', true);
     };
-
     /**
      * 通过绑定id获取nav,用于内部
      * @param navId
@@ -286,7 +286,20 @@
     BootstrapTab.prototype.getOptions = function () {
         return this.options;
     };
+    /**
+     * 获取激活标签的信息，可外部调用
+     */
+    BootstrapTab.prototype.getSelection = function () {
+        var $navs = this.$navs;
+        return $navs.find('> li.active:first a').data();
+    };
 
+    /**
+     * 入口
+     * @param option
+     * @returns {Plugin}
+     * @constructor
+     */
     var Plugin = function (option) {
         var value,
             args = Array.prototype.slice.call(arguments, 1);
@@ -357,7 +370,7 @@
     };
 
 
-    /******************************************方法注册********************************************************/
+    /**************************************************************************************************/
     BootstrapTab.DEFAULTS = {
         classes: 'nav nav-tabs',
         tabContentClasses: 'tab-content',
@@ -366,33 +379,33 @@
         tabs: []
     };
     BootstrapTab.TAB_DEFAULTS = {
-        id: '',
-        title: '',
-        remote: '',
-        target: '',
+        id: undefined,
+        title: undefined,
+        remote: undefined,
+        target: undefined,
         active: false,
         closeable: true
     };
-    BootstrapTab.METHODS = ['getOptions', 'remove', 'select', 'load'];
+    BootstrapTab.METHODS = ['getOptions', 'remove', 'select', 'load', 'getSelection'];
 
     BootstrapTab.TRANSITION_DURATION = 500;
     $.fn.bootstrapTab = Plugin;
     $.fn.bootstrapTab.constructor = BootstrapTab;
     $.fn.bootstrapTab.defaults = BootstrapTab.DEFAULTS;
     $.fn.bootstrapTab.methods = BootstrapTab.METHODS;
-    var clickHandler = function (e) {
+    var selectHandler = function (e) {
         e.preventDefault();
         var $this = $(this);
         var $target = $this.parent().parent().parent();
         Plugin.call($target, 'select', $this.attr('data-id'));
     };
-    var closeClickHandler = function (e) {
+    var removeHandler = function (e) {
         e.stopPropagation();
         e.preventDefault();
         var $this = $(this);
         var $target = $this.parent().parent().parent().parent();
         Plugin.call($target, 'remove', $this.parent().attr('data-id'));
     };
-    $(document).on('click.bootstrap.tab', 'ul.nav-tabs >li>a', clickHandler);
-    $(document).on('click.bootstrap.tab', 'ul.nav-tabs >li>a>button.close', closeClickHandler);
+    $(document).on('click.bootstrap.tab', 'ul.nav-tabs >li>a', selectHandler);
+    $(document).on('click.bootstrap.tab', 'ul.nav-tabs >li>a>button.close', removeHandler);
 })(jQuery);

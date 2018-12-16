@@ -9,13 +9,16 @@
 <button id="x">XXX</button>
 <div id="myTab" style="width: 500px;margin: 10px auto">
 </div>
+<div id="divContent">
+<h1>divContent</h1>
+</div>
 </body>
 <script src="js/jquery.js"></script>
 <script src="js/bootstrap.js"></script>
 <script src="js/bootstrap-tab.js"></script>
 <script>
-    var x = $('#myTab').bootstrapTab({
-        lazyLoad: false,
+    $('#myTab').bootstrapTab({
+        lazyLoad: true,
         tabs: [
             {
                 id: 'home',
@@ -30,15 +33,9 @@
                 active: false
             },
             {
-                id: 'info',
-                title: '个人信息',
-                remote: 'content2.html',
-                active: false
-            },
-            {
-                id: 'info',
-                title: '个人信息',
-                remote: 'content2.html',
+                id: 'user',
+                title: 'zxc',
+                target:'#divContent',
                 active: false
             }
         ]
