@@ -92,5 +92,41 @@ bootstrap-tab基于bootstrap开发，在其原bootstrap-tab的基础上进行了
     </tr>
     </thead>
     <tbody>
+        <tr>
+            <td>id</td>
+            <td>String</td>
+            <td>undefined</td>
+            <td>选项卡唯一标识</td>
+        </tr>
+        <tr>
+            <td>title</td>
+            <td>String</td>
+            <td>undefined</td>
+            <td>选项卡名称</td>
+        </tr>
+        <tr>
+            <td>remote</td>
+            <td>String</td>
+            <td>undefined</td>
+            <td>远程html的url,远程数据优先,可在连接后追加jquery选择器</td>
+        </tr>
+        <tr>
+            <td>target</td>
+            <td>String</td>
+            <td>undefined</td>
+            <td>本地html选择器,使用jquery选择器</td>
+        </tr>
+        <tr>
+            <td>active</td>
+            <td>Booelan</td>
+            <td>false</td>
+            <td>是否被激活</td>
+        </tr>
+        <tr>
+            <td>closeable</td>
+            <td>Booelan</td>
+            <td>true</td>
+            <td>能否被关闭</td>
+        </tr>
     </tbody>
 </table>

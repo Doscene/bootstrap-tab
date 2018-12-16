@@ -33,7 +33,7 @@
         $this.append(this.$navs);
 
         var tabContent = new StringBuffer();
-        tabContent.append('<div class="{0}">'.place(options.tabContentClasses));
+        tabContent.append('<div class="{0}">'.place(options.tabContentClass));
         tabContent.append('</div>');
         this.$panels = $(tabContent.toString());
         $this.append(this.$panels);
@@ -103,7 +103,7 @@
         $navs.append($nav);
 
         var panel = new StringBuffer();
-        panel.append(item.active ? '<div class="tab-pane {0}" data-id="{1}">'.place(options.activeClass, item.id) : '<div class="tab-pane" data-id="{0}">'.place(item.id));
+        panel.append(item.active ? '<div class="{0} {1}" data-id="{2}">'.place(options.tabPanelClass,options.activeClass, item.id) : '<div class="{0}" data-id="{1}">'.place(options.tabPanelClass,item.id));
         var $panel = $(panel.toString());
         if (load || item.active || item.target) {
             this.loadPanel($panel);
@@ -209,7 +209,7 @@
      */
     BootstrapTab.prototype.getPanel = function (panelId) {
         var $panels = this.$panels;
-        var result = $panels.find('> .tab-pane[data-id="{0}"]'.place(panelId));
+        var result = $panels.find('> .{0}[data-id="{1}"]:first'.place(this.options.tabPanelClass,panelId));
         if (!result[0]) {
             console.warn('Cannot find panel with data-id equals to {0}'.place(panelId));
         }
@@ -373,7 +373,8 @@
     /**************************************************************************************************/
     BootstrapTab.DEFAULTS = {
         classes: 'nav nav-tabs',
-        tabContentClasses: 'tab-content',
+        tabContentClass: 'tab-content',
+        tabPanelClass: 'tab-pane',
         activeClass: 'active',
         lazyLoad: true,
         tabs: []
