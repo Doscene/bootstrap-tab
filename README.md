@@ -35,6 +35,7 @@ bootstrap-tab基于bootstrap开发，在其原bootstrap-tab的基础上进行了
 
 3.选项卡参数
 -----------
+选项卡参数 jQuery.fn.bootstrapTab.defaults
 <table>
     <thead>
     <tr>
@@ -49,7 +50,47 @@ bootstrap-tab基于bootstrap开发，在其原bootstrap-tab的基础上进行了
             <td>classes</td>
             <td>String</td>
             <td>nav nav-tabs</td>
-            <td>选项卡导航栏样式，可选'nav nav-pills'</td>
+            <td>选项卡导航栏样式，可选'nav nav-pills'，可根据用户需求定制</td>
         </tr>
+        <tr>
+            <td>tabContentClasses</td>
+            <td>String</td>
+            <td>tab-content</td>
+            <td>选项卡面板样式</td>
+        </tr>
+        <tr>
+            <td>activeClass</td>
+            <td>String</td>
+            <td>active</td>
+            <td>选项卡激活时的样式，可根据用户需求定制</td>
+        </tr>
+        <tr>
+            <td>lazyLoad</td>
+            <td>Boolean</td>
+            <td>true</td>
+            <td>远程数据是否启用懒加载模式</td>
+        </tr>
+        <tr>
+            <td>tabs</td>
+            <td>Array</td>
+            <td>[]</td>
+            <td>选项卡数据</td>
+        </tr>
+    </tbody>
+</table>
+
+4.选项卡实例参数
+---------------
+选项卡参数 jQuery.fn.bootstrapTab.tabInstance
+<table>
+    <thead>
+    <tr>
+        <th>名称</th>
+        <th>类型</th>
+        <th>默认</th>
+        <th>描述</th>
+    </tr>
+    </thead>
+    <tbody>
     </tbody>
 </table>

@@ -59,7 +59,7 @@
         var options = this.options;
         var lastActive = null;
         $.each(options.tabs, function () {
-                var tab = $.extend(BootstrapTab.TAB_DEFAULTS, this);
+                var tab = $.extend(BootstrapTab.TAB_INSTANCE, this);
                 if (tab.active) {
                     lastActive = tab.id;
                 }
@@ -81,7 +81,7 @@
      */
     BootstrapTab.prototype.createItem = function (option, load) {
         var $navs = this.$navs, $content = this.$panels, options = this.options;
-        var item = $.extend({}, BootstrapTab.TAB_DEFAULTS, option);
+        var item = $.extend({}, BootstrapTab.TAB_INSTANCE, option);
         if (!item.id || item.id.length < 0) {
             throw 'The id of tab cannot be blank.';
         }
@@ -378,7 +378,7 @@
         lazyLoad: true,
         tabs: []
     };
-    BootstrapTab.TAB_DEFAULTS = {
+    BootstrapTab.TAB_INSTANCE = {
         id: undefined,
         title: undefined,
         remote: undefined,
@@ -392,6 +392,7 @@
     $.fn.bootstrapTab = Plugin;
     $.fn.bootstrapTab.constructor = BootstrapTab;
     $.fn.bootstrapTab.defaults = BootstrapTab.DEFAULTS;
+    $.fn.bootstrapTab.tabInstance = BootstrapTab.TAB_INSTANCE;
     $.fn.bootstrapTab.methods = BootstrapTab.METHODS;
     var selectHandler = function (e) {
         e.preventDefault();
