@@ -32,8 +32,16 @@ bootstrap-tab基于bootstrap开发，在其原bootstrap-tab的基础上进行了
         ]
     });
 ```
+3.demo
+------
 
-3.选项卡参数
+4.方法
+------
+
+5.事件
+------
+
+4.选项卡参数
 -----------
 选项卡参数 jQuery.fn.bootstrapTab.defaults
 <table>
@@ -79,7 +87,7 @@ bootstrap-tab基于bootstrap开发，在其原bootstrap-tab的基础上进行了
     </tbody>
 </table>
 
-4.选项卡实例参数
+5.选项卡实例参数
 ---------------
 选项卡参数 jQuery.fn.bootstrapTab.tabInstance
 <table>
