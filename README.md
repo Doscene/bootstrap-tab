@@ -64,6 +64,12 @@ bootstrap-tab基于bootstrap开发，在其原bootstrap-tab的基础上进行了
             <td>tabContentClasses</td>
             <td>String</td>
             <td>tab-content</td>
+            <td>选项卡面板容器样式</td>
+        </tr>
+        <tr>
+            <td>tabPanelClass</td>
+            <td>String</td>
+            <td>tab-pane</td>
             <td>选项卡面板样式</td>
         </tr>
         <tr>
