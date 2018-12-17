@@ -103,7 +103,7 @@
         $navs.append($nav);
 
         var panel = new StringBuffer();
-        panel.append(item.active ? '<div class="{0} {1}" data-id="{2}">'.place(options.tabPanelClass,options.activeClass, item.id) : '<div class="{0}" data-id="{1}">'.place(options.tabPanelClass,item.id));
+        panel.append(item.active ? '<div class="{0} {1}" data-id="{2}">'.place(options.tabPanelClass, options.activeClass, item.id) : '<div class="{0}" data-id="{1}">'.place(options.tabPanelClass, item.id));
         var $panel = $(panel.toString());
         if (load || item.active || item.target) {
             this.loadPanel($panel);
@@ -209,7 +209,7 @@
      */
     BootstrapTab.prototype.getPanel = function (panelId) {
         var $panels = this.$panels;
-        var result = $panels.find('> .{0}[data-id="{1}"]:first'.place(this.options.tabPanelClass,panelId));
+        var result = $panels.find('> .{0}[data-id="{1}"]:first'.place(this.options.tabPanelClass, panelId));
         if (!result[0]) {
             console.warn('Cannot find panel with data-id equals to {0}'.place(panelId));
         }
@@ -312,11 +312,9 @@
                 if ($.inArray(option, BootstrapTab.METHODS) < 0) {
                     throw new Error("Unknown method: " + option);
                 }
-
                 if (!data) {
                     return;
                 }
-
                 value = data[option].apply(data, args);
 
                 if (option === 'destroy') {
@@ -370,7 +368,7 @@
     };
 
 
-    /**************************************************************************************************/
+    /***********************************注册插件到jQuery和配置信息*******************************************/
     BootstrapTab.DEFAULTS = {
         classes: 'nav nav-tabs',
         tabContentClass: 'tab-content',

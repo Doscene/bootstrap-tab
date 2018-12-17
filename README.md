@@ -8,7 +8,7 @@ bootstrap-tab基于bootstrap开发，在其原bootstrap-tab的基础上进行了
 -----------------------
 目前只提供通过js构建tab的方法:
 ```html
-<script src="bootstrap-tab.js"></script>
+<script src="js/bootstrap-tab.js"></script>
 ```
 ```javascript
  $('#myTab').bootstrapTab({
@@ -37,6 +37,7 @@ bootstrap-tab基于bootstrap开发，在其原bootstrap-tab的基础上进行了
 
 4.方法
 ------
+方法列表 jQuery.fn.bootstrapTab.methods
 
 5.事件
 ------
@@ -134,13 +135,13 @@ bootstrap-tab基于bootstrap开发，在其原bootstrap-tab的基础上进行了
             <td>active</td>
             <td>Booelan</td>
             <td>false</td>
-            <td>是否被激活</td>
+            <td>在初始化时是否激活</td>
         </tr>
         <tr>
             <td>closeable</td>
             <td>Booelan</td>
             <td>true</td>
-            <td>能否被关闭</td>
+            <td>能否被关闭,设置为true时会在该选项卡导航按钮上出现'x'</td>
         </tr>
     </tbody>
 </table>
