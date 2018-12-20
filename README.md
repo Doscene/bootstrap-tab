@@ -59,7 +59,43 @@ bootstrap-tab基于bootstrap开发，在其原bootstrap-tab的基础上进行了
             <td>onAll</td>
             <td>all.bs.tab</td>
             <td>name:事件名<br>args:事件的参数</td>
-            <td>选项卡导航栏样式，可选'nav nav-pills'，可根据用户需求定制</td>
+            <td>所有事件均会触发该事件</td>
+        </tr>
+        <tr>
+            <td>onSelect</td>
+            <td>select.bs.tab</td>
+            <td>id:选项卡id<br>data:选项卡数据<br>target:选项卡导航的jquery对象</td>
+            <td>选中选项卡后触发</td>
+        </tr>
+        <tr>
+            <td>onLoaded</td>
+            <td>loaded.bs.tab</td>
+            <td>id:选项卡id<br>data:选项卡数据<br>target:选项卡导航的jquery对象</td>
+            <td>为选项卡加载好panel后触发</td>
+        </tr>
+        <tr>
+            <td>onRemove</td>
+            <td>remove.bs.tab</td>
+            <td>id:选项卡id<br>data:选项卡数据<br>target:选项卡导航的jquery对象</td>
+            <td>选项卡被移除后触发</td>
+        </tr>
+        <tr>
+            <td>onRemove</td>
+            <td>remove.bs.tab</td>
+            <td>id:选项卡id<br>data:选项卡数据</td>
+            <td>选项卡被移除后触发</td>
+        </tr>
+        <tr>
+            <td>onCreate</td>
+            <td>create.bs.tab</td>
+            <td>option:选项卡配置<br>created:选项卡导航的jquery对象</td>
+            <td>渲染一个选项卡后触发</td>
+        </tr>
+        <tr>
+            <td>onPush</td>
+            <td>push.bs.tab</td>
+            <td>option:选项卡配置<br>pushed:选项卡导航的jquery对象</td>
+            <td>用户手动添加选项卡后触发</td>
         </tr>
     </tbody>
 </table>

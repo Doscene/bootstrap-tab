@@ -287,9 +287,9 @@
                 console.warn('Tab is empty now');
             }
         }
+        this.trigger('remove', id, $nav.data(), $nav);
         $nav.parent().remove();
         $panel.remove();
-        this.trigger('remove', id, $nav.data(), $nav);
     };
     /**
      * 插入新标签，可外部调用
@@ -382,10 +382,10 @@
         activeClass: 'active',
         lazyLoad: true,
         tabs: [],
-        onAll: function (namr,args) {
+        onAll: function (name,args) {
             return {};
         },
-        onCreate: function (option, target) {
+        onCreate: function (option, created) {
             return {};
         },
         onSelect: function (id, data, target) {
@@ -395,10 +395,10 @@
             return {};
 
         },
-        onRemove: function (id, data, target) {
+        onRemove: function (id, data) {
             return {};
         },
-        onPush: function (option, created) {
+        onPush: function (option, pushed) {
             return {};
         }
     };
