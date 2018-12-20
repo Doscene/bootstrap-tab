@@ -6,7 +6,6 @@
     <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 </head>
 <body>
-<button id="x">XXX</button>
 <div id="myTab" style="width: 500px;margin: 10px auto">
 </div>
 <div id="divContent" class="nav nav-pills">
@@ -18,8 +17,12 @@
 <script src="js/bootstrap.js"></script>
 <script src="js/bootstrap-tab.js"></script>
 <script>
-    var bt = $('#myTab').bootstrapTab({
-        classes:'nav nav-pills',
+    $('#myTab').bootstrapTab({
+        classes: 'nav nav-pills',
+        onClose: function (id, data) {
+            console.info(id);
+            console.info(data);
+        },
         tabs: [
             {
                 id: 'home',

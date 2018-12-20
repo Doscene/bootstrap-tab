@@ -80,7 +80,6 @@
     BootstrapTab.prototype.trigger = function (name) {
         var args = Array.prototype.slice.call(arguments, 1);
         name += '.bs.tab';
-        console.info();
         this.options[BootstrapTab.EVENTS[name]].apply(this.options, args);
         this.$el.trigger($.Event(name), args);
 
@@ -264,7 +263,7 @@
      * 2.如果是激活状态则选定其前一个元素或者后一个标签激活
      * 3.否则只做移除处理
      */
-    BootstrapTab.prototype.remove = function (id) {
+    BootstrapTab.prototype.close = function (id) {
         if (!id) {
             console.warn('tabId is undefined,check your argument.');
             return;
@@ -287,7 +286,7 @@
                 console.warn('Tab is empty now');
             }
         }
-        this.trigger('remove', id, $nav.data(), $nav);
+        this.trigger('close', id, $nav.data());
         $nav.parent().remove();
         $panel.remove();
     };
@@ -382,24 +381,23 @@
         activeClass: 'active',
         lazyLoad: true,
         tabs: [],
-        onAll: function (name,args) {
-            return {};
+        onAll: function (name, args) {
+            return false;
         },
         onCreate: function (option, created) {
-            return {};
+            return false;
         },
         onSelect: function (id, data, target) {
-            return {};
+            return false;
         },
         onLoaded: function (id, data, target) {
-            return {};
-
+            return false;
         },
-        onRemove: function (id, data) {
-            return {};
+        onClose: function (id, data) {
+            return false;
         },
         onPush: function (option, pushed) {
-            return {};
+            return false;
         }
     };
     BootstrapTab.TAB_INSTANCE = {
@@ -410,12 +408,12 @@
         active: false,
         closeable: true
     };
-    BootstrapTab.METHODS = ['getOptions', 'remove', 'select', 'load', 'getSelection','push'];
+    BootstrapTab.METHODS = ['getOptions', 'close', 'select', 'load', 'getSelection', 'push'];
     BootstrapTab.EVENTS = {
         'all.bs.tab': 'onAll',
         'select.bs.tab': 'onSelect',
         'loaded.bs.tab': 'onLoaded',
-        'remove.bs.tab': 'onRemove',
+        'close.bs.tab': 'onClose',
         'create.bs.tab': 'onCreate',
         'push.bs.tab': 'onPush'
     };
@@ -437,7 +435,7 @@
         e.preventDefault();
         var $this = $(this);
         var $target = $this.parent().parent().parent().parent();
-        Plugin.call($target, 'remove', $this.parent().attr('data-id'));
+        Plugin.call($target, 'close', $this.parent().attr('data-id'));
     };
     $(document).on('click.bootstrap.tab', 'ul.nav >li>a', selectHandler);
     $(document).on('click.bootstrap.tab', 'ul.nav >li>a>button.close', removeHandler);

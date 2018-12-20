@@ -53,6 +53,36 @@ bootstrap-tab基于bootstrap开发，在其原bootstrap-tab的基础上进行了
     </tr>
     </thead>
     <tbody>
+        <tr>
+            <td>getOptions</td>
+            <td></td>
+            <td>获取全局配置</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>close</td>
+            <td>id:选项卡标识</td>
+            <td>关闭选项卡</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>select</td>
+            <td>id:选项卡标识</td>
+            <td>选中选项卡</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>getSelection</td>
+            <td></td>
+            <td>获取当前被选中的选项卡数据</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>push</td>
+            <td>option:选项卡参数</td>
+            <td>插入选项卡</td>
+            <td></td>
+        </tr>
     </tdoby>
 </table>
 
@@ -88,8 +118,8 @@ bootstrap-tab基于bootstrap开发，在其原bootstrap-tab的基础上进行了
             <td>为选项卡加载好panel后触发</td>
         </tr>
         <tr>
-            <td>onRemove</td>
-            <td>remove.bs.tab</td>
+            <td>onClose</td>
+            <td>close.bs.tab</td>
             <td>id:选项卡id<br>data:选项卡数据</td>
             <td>选项卡被移除后触发</td>
         </tr>
