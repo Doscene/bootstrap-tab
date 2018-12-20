@@ -37,6 +37,7 @@ bootstrap-tab基于bootstrap开发，在其原bootstrap-tab的基础上进行了
 ```
 3.demo
 ------
+![demo1](demo1.png)
 
 4.方法
 ------
@@ -61,7 +62,7 @@ bootstrap-tab基于bootstrap开发，在其原bootstrap-tab的基础上进行了
     <thead>
     <tr>
         <th>Option 事件</th>
-        <th>jQuery事件</th>
+        <th>jQuery 事件</th>
         <th>参数列表</th>
         <th>描述</th>
     </tr>
