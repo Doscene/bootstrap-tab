@@ -268,6 +268,7 @@
             console.warn('tabId is undefined,check your argument.');
             return;
         }
+        console.info(id);
         var $nav = this.getNav(id), $panel = this.getPanel(id);
         if (!$nav || $nav.length < 0 || !$panel || $panel.length < 0) {
             console.warn('Tab with id {0} not found.'.place(id));
