@@ -76,12 +76,6 @@ bootstrap-tab基于bootstrap开发，在其原bootstrap-tab的基础上进行了
         <tr>
             <td>onRemove</td>
             <td>remove.bs.tab</td>
-            <td>id:选项卡id<br>data:选项卡数据<br>target:选项卡导航的jquery对象</td>
-            <td>选项卡被移除后触发</td>
-        </tr>
-        <tr>
-            <td>onRemove</td>
-            <td>remove.bs.tab</td>
             <td>id:选项卡id<br>data:选项卡数据</td>
             <td>选项卡被移除后触发</td>
         </tr>
