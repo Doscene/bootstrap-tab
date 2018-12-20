@@ -37,7 +37,7 @@ bootstrap-tab基于bootstrap开发，在其原bootstrap-tab的基础上进行了
 ```
 3.demo
 ------
-![demo1](demo1.png)
+![demo1](https://github.com/Doscene/bootstrap-tab/blob/master/demo1.PNG)
 
 4.方法
 ------
