@@ -410,7 +410,7 @@
         active: false,
         closeable: true
     };
-    BootstrapTab.METHODS = ['getOptions', 'remove', 'select', 'load', 'getSelection'];
+    BootstrapTab.METHODS = ['getOptions', 'remove', 'select', 'load', 'getSelection','push'];
     BootstrapTab.EVENTS = {
         'all.bs.tab': 'onAll',
         'select.bs.tab': 'onSelect',

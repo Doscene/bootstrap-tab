@@ -41,6 +41,18 @@ bootstrap-tab基于bootstrap开发，在其原bootstrap-tab的基础上进行了
 4.方法
 ------
 方法列表 jQuery.fn.bootstrapTab.methods
+<table>
+    <thead>
+    <tr>
+        <th>方法名</th>
+        <th>参数</th>
+        <th>描述</th>
+        <th>例子</th>
+    </tr>
+    </thead>
+    <tbody>
+    </tdoby>
+</table>
 
 5.事件
 ------
