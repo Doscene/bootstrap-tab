@@ -38,6 +38,7 @@ bootstrap-tab基于bootstrap开发，在其原bootstrap-tab的基础上进行了
 3.demo
 ------
 ![demo1](https://github.com/Doscene/bootstrap-tab/blob/master/demo1.PNG)
+![demo2](https://github.com/Doscene/bootstrap-tab/blob/master/demo2.PNG)
 
 4.方法
 ------

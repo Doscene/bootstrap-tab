@@ -439,6 +439,6 @@
         var $target = $this.parent().parent().parent().parent();
         Plugin.call($target, 'remove', $this.parent().attr('data-id'));
     };
-    $(document).on('click.bootstrap.tab', 'ul.nav-tabs >li>a', selectHandler);
-    $(document).on('click.bootstrap.tab', 'ul.nav-tabs >li>a>button.close', removeHandler);
+    $(document).on('click.bootstrap.tab', 'ul.nav >li>a', selectHandler);
+    $(document).on('click.bootstrap.tab', 'ul.nav >li>a>button.close', removeHandler);
 })(jQuery);
