@@ -1,7 +1,7 @@
 Bootstrap-Tab
 =============
 1.什么是Bootstrap-Tab?
-=====================
+---------------------
 bootstrap-tab基于bootstrap开发，在其原bootstrap-tab的基础上进行了扩展和修改，使其能支持ajax请求页面、动态添加删除tab。
 
 2.怎么使用Bootstrap-Tab?
@@ -12,6 +12,9 @@ bootstrap-tab基于bootstrap开发，在其原bootstrap-tab的基础上进行了
 ```
 ```javascript
  $('#myTab').bootstrapTab({
+        onAll:function(){
+            console.info('All event will trigger this.');
+        },
         tabs: [
             {
                 id: 'home',
@@ -41,6 +44,25 @@ bootstrap-tab基于bootstrap开发，在其原bootstrap-tab的基础上进行了
 
 5.事件
 ------
+事件列表 jQuery.fn.bootstrapTab.events
+<table>
+    <thead>
+    <tr>
+        <th>Option 事件</th>
+        <th>jQuery事件</th>
+        <th>参数列表</th>
+        <th>描述</th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>onAll</td>
+            <td>all.bs.tab</td>
+            <td>name:事件名<br>args:事件的参数</td>
+            <td>选项卡导航栏样式，可选'nav nav-pills'，可根据用户需求定制</td>
+        </tr>
+    </tbody>
+</table>
 
 6.选项卡参数
 -----------

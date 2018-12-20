@@ -18,8 +18,7 @@
 <script src="js/bootstrap.js"></script>
 <script src="js/bootstrap-tab.js"></script>
 <script>
-    $('#myTab').bootstrapTab({
-        lazyLoad: true,
+    var bt = $('#myTab').bootstrapTab({
         tabs: [
             {
                 id: 'home',
@@ -41,5 +40,6 @@
             }
         ]
     });
+    console.info(bt.EVENTS);
 </script>
 </html>

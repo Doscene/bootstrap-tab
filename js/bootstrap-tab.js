@@ -9,6 +9,7 @@
  */
 (function ($) {
     "use strict";
+
     /**
      * 构造函数
      * @param el
@@ -18,39 +19,40 @@
     var BootstrapTab = function (el, options) {
         this.options = options;
         this.$el = $(el);
+        // noinspection JSUnresolvedFunction
         this.init();
     };
     /**
      *初始化标签，用于内部
      */
     BootstrapTab.prototype.init = function () {
-        var $this = this.$el, options = this.options;
-
-        var navs = new StringBuffer();
-        navs.append('<ul class="{0}">'.place(options.classes));
-        navs.append('</ul>');
-        this.$navs = $(navs.toString());
-        $this.append(this.$navs);
-
-        var tabContent = new StringBuffer();
-        tabContent.append('<div class="{0}">'.place(options.tabContentClass));
-        tabContent.append('</div>');
-        this.$panels = $(tabContent.toString());
-        $this.append(this.$panels);
-        this.initInternal();
+        this.initContainer();
+        this.initTabs();
         this.initStatus();
     };
     /**
-     * 初始化渲染元素，用于内部
+     * 初始化容器,用于内部
      */
-    BootstrapTab.prototype.initInternal = function () {
-        var _this = this, options = this.options, tabs = options.tabs;
-        $.each(tabs, function () {
-            _this.createItem(this, !options.lazyLoad);
+    BootstrapTab.prototype.initContainer = function () {
+        var options = this.options;
+        var navs = $('<ul class="{0}"></ul>'.place(options.classes));
+        this.$navs = navs.appendTo(this.$el);
+
+        var tabContent = $('<div class="{0}"></div>'.place(options.tabContentClass));
+        this.$panels = tabContent.appendTo(this.$el);
+    };
+    /**
+     * 初始化渲染元素,用于内部
+     */
+    BootstrapTab.prototype.initTabs = function () {
+        var that = this;
+        $.each(this.options.tabs, function () {
+            that.createItem(this, !that.options.lazyLoad);
         });
     };
     /**
      * 初始化标签导航的激活状态，用于内部
+     * 激活规则：
      * 1.如果有多个[.active]的标签则只[active]最后一次出现[.active]的标签
      * 2.如果只有一个[.active]的标签则[active]该标签
      * 3.如果没有[.active]的标签则[active]第一个标签
@@ -72,7 +74,22 @@
         }
     };
     /**
+     * 事务触发
+     * @param name
+     */
+    BootstrapTab.prototype.trigger = function (name) {
+        var args = Array.prototype.slice.call(arguments, 1);
+        name += '.bs.tab';
+        console.info();
+        this.options[BootstrapTab.EVENTS[name]].apply(this.options, args);
+        this.$el.trigger($.Event(name), args);
+
+        this.options.onAll(name, args);
+        this.$el.trigger($.Event('all.bs.tab'), [name, args]);
+    };
+    /**
      * 创建标签，用于内部
+     * 规则：
      * 1.如果[load=true]或者新标签处于[active]状态则会加载标签对应的面板
      * 2.如果[!第一条]则不会加载标签对应的面板
      * 3.本方法不会重复创建id相同的标签
@@ -80,7 +97,7 @@
      * @param   load    是否加载nav对应的panel
      */
     BootstrapTab.prototype.createItem = function (option, load) {
-        var $navs = this.$navs, $content = this.$panels, options = this.options;
+        var $navs = this.$navs, $panels = this.$panels, options = this.options;
         var item = $.extend({}, BootstrapTab.TAB_INSTANCE, option);
         if (!item.id || item.id.length < 0) {
             throw 'The id of tab cannot be blank.';
@@ -90,25 +107,19 @@
             console.warn('Duplicate id({0}) duplicate ,and skip it.'.place(item.id));
             return;
         }
-        var nav = new StringBuffer();
-        nav.append(item.active ? '<li class="{0}">'.place(options.activeClass) : '<li>');
-        nav.append('<a data-id="{0}" data-remote="{1}" data-target="{2}" data-title="{3}" data-closeable="{4}">'.place(item.id, item.remote, item.target, item.title, item.closeable));
-        nav.append(item.title);
-        if (item.closeable) {
-            nav.append('<button type="button" style="margin-left: 10px" class="close">&times;</button>');
-        }
-        nav.append('</a>');
-        nav.append('</li>');
-        var $nav = $(nav.toString());
+        var $nav = $([item.active ? '<li class="{0}">'.place(options.activeClass) : '<li>',
+            '<a data-id="{0}" data-remote="{1}" data-target="{2}" data-title="{3}" data-closeable="{4}">'.place(item.id, item.remote, item.target, item.title, item.closeable),
+            item.title, item.closeable ? '<button type="button" style="margin-left: 10px" class="close">&times;</button>' : '',
+            '</a></li>'].join(''));
         $navs.append($nav);
 
-        var panel = new StringBuffer();
-        panel.append(item.active ? '<div class="{0} {1}" data-id="{2}">'.place(options.tabPanelClass, options.activeClass, item.id) : '<div class="{0}" data-id="{1}">'.place(options.tabPanelClass, item.id));
-        var $panel = $(panel.toString());
+        var $panel = $(item.active ? '<div class="{0} {1}" data-id="{2}">'.place(options.tabPanelClass, options.activeClass, item.id) : '<div class="{0}" data-id="{1}">'.place(options.tabPanelClass, item.id));
         if (load || item.active || item.target) {
             this.loadPanel($panel);
         }
-        $content.append($panel);
+        $panels.append($panel);
+        this.trigger('create', item, $nav);
+        return $nav;
     };
     /**
      * 激活标签,内部使用
@@ -131,10 +142,7 @@
                 .find('> .dropdown-menu > .{0}'.place(activeClass))
                 .removeClass(activeClass)
                 .end();
-
-            element
-                .addClass(activeClass);
-
+            element.addClass(activeClass);
             if (transition) {
                 element[0].offsetWidth;// reflow for transition
                 element.addClass('in');
@@ -186,8 +194,11 @@
             $panel.load(remote);
         } else if (target !== 'undefined') {
             $panel.html($(target));
+        } else {
+            throw 'Remote and target both have not config.';
         }
         $panel.prop('data-loaded', true);
+        this.trigger('loaded', id, $nav.data(), $nav);
     };
     /**
      * 通过绑定id获取nav,用于内部
@@ -236,6 +247,7 @@
             this.loadPanel(id);
         }
         this.active($panel, this.$panels);
+        this.trigger('select', id, $nav.data(), $nav);
     };
 
     /**
@@ -262,7 +274,6 @@
             console.warn('Tab with id {0} not found.'.place(id));
             return;
         }
-
         if ($nav.parent().hasClass(this.options.activeClass)) {
             var $next = $nav.parent().next('li');
             var $prev = $nav.parent().prev('li');
@@ -278,7 +289,21 @@
         }
         $nav.parent().remove();
         $panel.remove();
+        this.trigger('remove', id, $nav.data(), $nav);
     };
+    /**
+     * 插入新标签，可外部调用
+     */
+    BootstrapTab.prototype.push = function (tab) {
+        var option = $.extend({}, BootstrapTab.TAB_INSTANCE, tab);
+        var $created = this.createItem(option, this.options.lazyLoad);
+        if (option.active) {
+            this.select(option.id);
+        }
+        this.trigger('push', option, $created);
+    };
+
+
     /**
      * 获取配置信息，可外部调用
      * @returns {*}
@@ -303,6 +328,7 @@
     var Plugin = function (option) {
         var value,
             args = Array.prototype.slice.call(arguments, 1);
+        // noinspection JSUnresolvedFunction
         this.each(function () {
             var $this = $(this),
                 data = $this.data('bootstrap.tab'),
@@ -330,33 +356,13 @@
     };
 
     /**
-     * 构建的字符串缓存类，便于拼接html
-     * @constructor
-     */
-    var StringBuffer = function () {
-        this.internal = [];
-    };
-    StringBuffer.prototype.append = function (resource) {
-        if (typeof resource === 'object') {
-            this.internal.push(JSON.stringify(resource));
-        } else if (typeof resource === 'undefined') {
-            return this;
-        } else {
-            this.internal.push(resource.toString());
-        }
-        return this;
-    };
-    StringBuffer.prototype.toString = function () {
-        return this.internal.join('');
-    };
-    /**
      * 使用字符参数替换占位符
      * @returns {String}
      */
     String.prototype.place = function () {
         if (arguments.length === 0) return this;
         var param = arguments[0], str = this;
-        if (typeof(param) === 'object') {
+        if (typeof (param) === 'object') {
             for (var key in param)
                 str = str.replace(new RegExp("\\{" + key + "\\}", "g"), param[key]);
             return str;
@@ -375,7 +381,26 @@
         tabPanelClass: 'tab-pane',
         activeClass: 'active',
         lazyLoad: true,
-        tabs: []
+        tabs: [],
+        onAll: function (namr,args) {
+            return {};
+        },
+        onCreate: function (option, target) {
+            return {};
+        },
+        onSelect: function (id, data, target) {
+            return {};
+        },
+        onLoaded: function (id, data, target) {
+            return {};
+
+        },
+        onRemove: function (id, data, target) {
+            return {};
+        },
+        onPush: function (option, created) {
+            return {};
+        }
     };
     BootstrapTab.TAB_INSTANCE = {
         id: undefined,
@@ -386,13 +411,21 @@
         closeable: true
     };
     BootstrapTab.METHODS = ['getOptions', 'remove', 'select', 'load', 'getSelection'];
-
+    BootstrapTab.EVENTS = {
+        'all.bs.tab': 'onAll',
+        'select.bs.tab': 'onSelect',
+        'loaded.bs.tab': 'onLoaded',
+        'remove.bs.tab': 'onRemove',
+        'create.bs.tab': 'onCreate',
+        'push.bs.tab': 'onPush'
+    };
     BootstrapTab.TRANSITION_DURATION = 500;
     $.fn.bootstrapTab = Plugin;
     $.fn.bootstrapTab.constructor = BootstrapTab;
     $.fn.bootstrapTab.defaults = BootstrapTab.DEFAULTS;
     $.fn.bootstrapTab.tabInstance = BootstrapTab.TAB_INSTANCE;
     $.fn.bootstrapTab.methods = BootstrapTab.METHODS;
+    $.fn.bootstrapTab.events = BootstrapTab.EVENTS;
     var selectHandler = function (e) {
         e.preventDefault();
         var $this = $(this);
