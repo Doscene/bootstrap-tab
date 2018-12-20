@@ -102,7 +102,7 @@ bootstrap-tab基于bootstrap开发，在其原bootstrap-tab的基础上进行了
             <td>onPush</td>
             <td>push.bs.tab</td>
             <td>option:选项卡配置<br>pushed:选项卡导航的jquery对象</td>
-            <td>用户手动添加选项卡后触发</td>
+            <td>通过js添加选项卡后触发</td>
         </tr>
     </tbody>
 </table>
