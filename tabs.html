@@ -4,23 +4,57 @@
     <meta charset="UTF-8">
     <title>选项卡测试</title>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+    <style>
+        ul {
+            overflow: hidden;
+            width: 100%;
+            height: 42px;
+        }
+
+        ul li {
+            display: inline-block;
+            position: relative;
+        }
+    </style>
 </head>
 <body>
 <button onclick="add()">添加</button>
 <button onclick="select()">选中</button>
 <button onclick="_close()">关闭</button>
-<div id="myTab" style="">
+<button onclick="f()">测试</button>
+<div id="myTab">
 </div>
 <div id="divContent" class="nav nav-pills">
     <h1>divContent</h1>
 </div>
+<ul style="width: 300px;height: 50px">
+    <li>测试表格</li>
+    <li>测试表格</li>
+    <li>测试表格</li>
+    <li>测试表格</li>
+    <li>测试表格</li>
+    <li>测试表格</li>
+    <li>测试表格</li>
+    <li>测试表格</li>
+    <li>测试表格</li>
+    <li>测试表格</li>
+    <li>测试表格</li>
+    <li>测试表格</li>
+    <li>测试表格</li>
+    <li>测试表格</li>
+    <li>测试表格</li>
+    <li>测试表格</li>
+    <li>测试表格</li>
+    <li>测试表格</li>
+    <li>测试表格哒哒哒哒哒哒</li>
+</ul>
 </body>
 <script src="js/jquery.js"></script>
 <script src="js/bootstrap.js"></script>
 <script src="js/bootstrap-tab.js"></script>
 <script>
     $('#myTab').bootstrapTab({
-        classes: 'nav nav-pills',
+        classes: 'nav nav-tabs',
         onClose: function (id, data) {
             console.info(id);
             console.info(data);
@@ -47,7 +81,6 @@
         ]
     });
     var addFg = 1;
-
     function add() {
 
         var op = {
@@ -64,7 +97,9 @@
         var id = prompt('请输入要选中选项卡的标识');
         $('#myTab').bootstrapTab('select', id);
     }
-
+    function f() {
+        $('ul').css('overflow','visible');
+    }
     function _close() {
         var id = prompt('请输入要移除选项卡的标识');
         $('#myTab').bootstrapTab('close', id);

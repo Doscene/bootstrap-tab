@@ -92,6 +92,7 @@
      * 1.如果[load=true]或者新标签处于[active]状态则会加载标签对应的面板
      * 2.如果[!第一条]则不会加载标签对应的面板
      * 3.本方法不会重复创建id相同的标签
+     * 4.TODO   边框溢出时隐藏溢出标签
      * @param option   标签配置
      * @param   load    是否加载nav对应的panel
      */
@@ -106,9 +107,10 @@
             console.warn('Duplicate id({0}) duplicate ,and skip it.'.place(item.id));
             return;
         }
+
         var $nav = $([item.active ? '<li class="{0}">'.place(options.activeClass) : '<li>',
             '<a data-id="{0}" data-remote="{1}" data-target="{2}" data-title="{3}" data-closeable="{4}">'.place(item.id, item.remote, item.target, item.title, item.closeable),
-            item.title, item.closeable ? '<button type="button" style="margin-left: 10px" class="close">&times;</button>' : '',
+            item.title, item.closeable ? '<button type="button" style="margin-left: 10px;display:inline-block;position: relative" class="close">&times;</button>' : '',
             '</a></li>'].join(''));
         $navs.append($nav);
 
