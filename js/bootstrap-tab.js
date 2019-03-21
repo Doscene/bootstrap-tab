@@ -3,9 +3,9 @@
  * version: 1.11.1
  * https://github.com/doscene
  * TODO 重复代码抽取
- * TODO 事件
- * TODO 进一步封装option
- * TODO 控制面板的样式
+ * TODO 事件封装
+ * TODO 进一步封装配置json
+ * TODO tab的样式
  */
 (function ($) {
     "use strict";
@@ -107,13 +107,11 @@
             console.warn('Duplicate id({0}) duplicate ,and skip it.'.place(item.id));
             return;
         }
-
         var $nav = $([item.active ? '<li class="{0}">'.place(options.activeClass) : '<li>',
             '<a data-id="{0}" data-remote="{1}" data-target="{2}" data-title="{3}" data-closeable="{4}">'.place(item.id, item.remote, item.target, item.title, item.closeable),
             item.title, item.closeable ? '<button type="button" style="margin-left: 10px;display:inline-block;position: relative" class="close">&times;</button>' : '',
             '</a></li>'].join(''));
         $navs.append($nav);
-
         var $panel = $(item.active ? '<div class="{0} {1}" data-id="{2}">'.place(options.tabPanelClass, options.activeClass, item.id) : '<div class="{0}" data-id="{1}">'.place(options.tabPanelClass, item.id));
         if (load || item.active || item.target) {
             this.loadPanel($panel);
@@ -136,7 +134,6 @@
         var transition = callback
             && $.support.transition
             && ($active.length && $active.hasClass('fade') || !!container.find('> .fade').length);
-
         function next() {
             $active
                 .removeClass(activeClass)
@@ -295,6 +292,7 @@
     };
     /**
      * 插入新标签，可外部调用
+     * TODO BUG--当标签被全部关闭后，添加tab不会被[active]
      */
     BootstrapTab.prototype.push = function (tab) {
         var option = $.extend({}, BootstrapTab.TAB_INSTANCE, tab);
@@ -376,7 +374,7 @@
     };
 
 
-    /***********************************注册插件到jQuery和配置信息*******************************************/
+    /***********************************注册插件到jQuery的配置信息*******************************************/
     BootstrapTab.DEFAULTS = {
         classes: 'nav nav-tabs',
         tabContentClass: 'tab-content',
